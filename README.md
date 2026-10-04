@@ -108,3 +108,43 @@ Ateeq Ur Rehman
 
 
 ⭐ This repository is part of my Artificial intelligence Lab – Week 2 coursework and documents my practical learning and experimentation with classification models.
+## Final Model Selection and Test Evaluation
+
+After tuning the individual models, we compared Logistic Regression, Random Forest, and XGBoost using **5-fold stratified cross-validation** on the training data.
+
+### Cross-Validation Comparison
+
+| Model                         | Mean CV ROC-AUC | CV Standard Deviation |
+| ----------------------------- | --------------: | --------------------: |
+| Logistic Regression (tuned C) |          0.8464 |                0.0129 |
+| Random Forest (random search) |          0.8464 |                0.0114 |
+| XGBoost (tuned)               |      **0.8502** |                0.0117 |
+
+XGBoost achieved the highest mean CV ROC-AUC (**0.8502**), so it was selected as the final model based **only on cross-validation performance**.
+
+The test set was not used during model selection. This helps prevent information from the test set from influencing the choice of model.
+
+### Final Test Evaluation
+
+The selected XGBoost model was then refitted using the complete training set and evaluated on the held-out test set **once**.
+
+The final test results were:
+
+* **ROC-AUC:** 0.8483
+* **Recall:** 0.521
+* **Precision:** 0.659
+* **Classification threshold:** 0.50
+
+The test ROC-AUC of **0.8483** is close to the cross-validation ROC-AUC of **0.8502**, suggesting that the model generalizes reasonably well to unseen customers.
+
+At the default threshold of 0.50, the model correctly identifies approximately **52.1% of the actual churners**, while the precision of **0.659** means that about 65.9% of customers predicted as churners actually churned.
+
+### Final Model
+
+**XGBoost (tuned)** was selected as the final model because it achieved the highest cross-validated ROC-AUC among the three candidates.
+
+The trained model was saved as:
+
+`churn_model.joblib`
+
+This saved model can be loaded later for deployment and prediction without retraining it.
