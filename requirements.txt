@@ -1,0 +1,6 @@
+streamlit>=1.65.0
+scikit-learn==1.9.1    # TODO: apne Kaggle (Task 1.1) wala version likho, e.g. 1.5.2
+pandas
+numpy
+joblib
+# xgboost==2.0.3       # uncomment ONLY if your final model is XGBoost
